@@ -1,0 +1,1 @@
+//Utility functions that are used throughout the application.
