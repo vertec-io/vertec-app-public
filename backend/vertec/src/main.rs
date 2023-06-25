@@ -15,6 +15,10 @@ async fn index() -> impl Responder {
     HttpResponse::Ok().body("<h1>Welcome to the Vertec!</h1>")
 }
 
+fn start_runtime() {
+    println!("Starting the Vertex Runtime")
+}
+
 //ENTRY point of the application.
 //  #[actix_web::main] attribute macro simplifies setup and starting of the Actix-Web Server
 //  main() is an async function that returns a std::io::Result, which could succeed (Ok(T)) or error (Err(E))
@@ -31,6 +35,10 @@ async fn index() -> impl Responder {
 //      
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+
+    //Start the vertex runtime
+    start_runtime();
+
     //Get the server address from environment variables or use a default value
     let server_address = env::var("SERVER_ADDRESS").unwrap_or_else(|_| "127.0.0.1".to_string());
 
@@ -39,6 +47,8 @@ async fn main() -> std::io::Result<()> {
 
     let bind_address = format!("{}:{}", server_address,server_port);
     
+
+    println!("Starting the Vertex Server at {}",bind_address);
     //Define the api routes to their handlers
     HttpServer::new(|| {
         App::new()
